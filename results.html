@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezultatul Testului</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6e6;
+            margin: 50px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 50%;
+            margin: auto;
+        }
+        h2 {
+            color: #ff5e5e;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff5e5e;
+        }
+        .btn {
+            background-color: #ff5e5e;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background-color: #e04b4b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Rezultatul Compatibilității</h2>
+        <p>Scorul vostru de compatibilitate este:</p>
+        <p class="score" id="score"></p>
+        <p id="message"></p>
+        <a href="index.html" class="btn">Înapoi la început</a>
+    </div>
+
+    <script>
+        // Get URL parameters (answers from test.html)
+        const params = new URLSearchParams(window.location.search);
+        
+        // Sum up all selected values
+        let totalScore = 0;
+        let maxScore = 5 * 5; // 5 questions, max 5 points each
+        
+        for (let i = 1; i <= 5; i++) {
+            totalScore += parseInt(params.get("q" + i)) || 0;
+        }
+        
+        // Calculate percentage score
+        let percentage = Math.round((totalScore / maxScore) * 100);
+        
+        // Compatibility message based on score
+        let message = "";
+        if (percentage >= 80) {
+            message = "💖 Sunteți extrem de compatibili! O relație puternică bazată pe înțelegere și iubire.";
+        } else if (percentage >= 60) {
+            message = "😊 Sunteți compatibili! Cu puțină muncă, relația voastră poate deveni și mai solidă.";
+        } else if (percentage >= 40) {
+            message = "😐 Aveți câteva diferențe, dar cu comunicare și răbdare, puteți crește împreună.";
+        } else {
+            message = "💔 Pare că aveți viziuni diferite despre relație. O conversație sinceră v-ar putea ajuta.";
+        }
+        
+        // Display results
+        document.getElementById("score").textContent = percentage + "%";
+        document.getElementById("message").textContent = message;
+    </script>
+</body>
+</html>
